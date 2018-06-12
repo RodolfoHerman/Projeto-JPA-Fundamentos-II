@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
@@ -42,6 +43,7 @@ public class Produto {
 
     //Constroio uma tabela associativa entre 'Produto' e 'Categoria'
     @ManyToMany
+    @JoinTable(name="PRODUTO_CATEGORIA")
     private List<Categoria> categorias = new ArrayList<>();
 
     /**
@@ -135,5 +137,20 @@ public class Produto {
 			this.categorias.add(categoria);
 		}
 	}
+
+
+    /**
+     * @return List<Categoria> return the categorias
+     */
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    /**
+     * @param categorias the categorias to set
+     */
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
+    }
 
 }

@@ -73,7 +73,7 @@ public class ProdutoController {
                           @RequestParam Integer categoriaId,
                           @RequestParam(required=false) Integer lojaId) {
 
-        List<Produto> produtos = produtoDao.getProdutos(nome, categoriaId, lojaId);
+        List<Produto> produtos = produtoDao.getProdutosHibernate(nome, categoriaId, lojaId);
 
         model.addAttribute("produtos", produtos);
 
