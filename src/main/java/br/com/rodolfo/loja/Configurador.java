@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewInterceptor;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -62,6 +64,23 @@ public class Configurador extends WebMvcConfigurerAdapter {
 		return messageSource;
 		
 	}
+
+
+	//O SPRING MVC necessita configurar a EntityManager para que não feche durante um 'request' e sim o feche ao final do 'request' em relacionamentos LAZY LOADING.
+	//Essa configuração é conhecida como  padrão 'OpenEntityManagerInView'. O método 'OpenEntityManagerInViewInterceptor' permte abrir o EntityManager apenas ao chamar algum método do Controller, evitando problemas de EntityManager desnecessários. Também chamado de 'Interceptiors'
+	
+	//Responsável por gerar uma instância do interceptor que será registrado.
+	// @Bean
+	// public OpenEntityManagerInViewInterceptor getOpenEntityManagerInViewInterceptor() { 
+	// 	return new OpenEntityManagerInViewInterceptor();
+	// }
+
+	//Esse método, nos fornece um registro InterceptorRegistry que usamos para adicionar os interceptors que serão usados no SpringMVC
+	// @Override
+	// public void addInterceptors(InterceptorRegistry registry) {
+	// 	registry.addWebRequestInterceptor(getOpenEntityManagerInViewInterceptor());
+	// }
+
 	
 	@Bean 
 	public ViewResolver getViewResolver() {

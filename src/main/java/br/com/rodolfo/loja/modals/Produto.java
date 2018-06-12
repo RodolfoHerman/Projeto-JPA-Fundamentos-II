@@ -11,13 +11,25 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedEntityGraphs;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.annotations.DynamicUpdate;
 
-
+//Grafos de relacionamento : Com esse recurso podemos dizer à JPA quais relacionamentos queremos trazer nas "queries", evitando o LAZY LOADING
+@NamedEntityGraphs(
+    @NamedEntityGraph(name="produtoComCategoria",
+                      attributeNodes={
+                          @NamedAttributeNode("categorias")
+                      })
+)
 @Entity
+//A anotação DynamicUpdate realiza o update apenas do campo que sofreu alteração e não de todos os campos
+@DynamicUpdate
 public class Produto {
     
     @Id

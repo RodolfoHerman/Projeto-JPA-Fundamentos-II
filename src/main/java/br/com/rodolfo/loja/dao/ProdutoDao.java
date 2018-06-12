@@ -136,6 +136,7 @@ public class ProdutoDao {
 
         //O Hibernate possui o 'CriteriaQuery' que seria análogo ao 'TypedQuery'
         CriteriaQuery<Produto> query = criteriaBuilder.createQuery(Produto.class);
+        query.distinct(true);
 
         //O método 'from(Produto.class)' é o from do SQL, esse trecho seria "SELECT m FROM Produto m". Aqui irá retornar uma lista de todos os produtos. Para construir o filtro precisamos pegar as referências dos atributos, para isso o JPA retorna uma instância da interface Root. Através dessa interface que é possível traçar os caminhos, 'path', para cada atributo. Ou seja, para navegar até os atributos de uma entidade
         Root<Produto> root = query.from(Produto.class);
@@ -189,6 +190,12 @@ public class ProdutoDao {
         query.where(conjuncao);
 
         TypedQuery<Produto> typedQuery = em.createQuery(query);
+
+        //Utilizando o EntityGraphs
+        //o realizar a busca normalmente pela lista de produtos, devemos dizer qual grafo queremos utilizar passando uma dica na query
+        // return em.createQuery("select distinct p from Produto p", Produto.class)
+        //         .setHint("javax.persistence.loadgraph", em.getEntityGraph("produtoComCategoria"))
+        //         .getResultList();
 
         return typedQuery.getResultList();
     }
