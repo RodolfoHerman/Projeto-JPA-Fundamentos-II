@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedEntityGraphs;
+import javax.persistence.Version;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
@@ -35,6 +36,10 @@ public class Produto {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+
+    //A anotação 'Version' faz um lock otimista. O lock otimista permite que os conflitos ocorram, a ideia é que o banco/aplicação nunca trave o acesso ao registro. Ou seja, se duas pessoas tentarem atualizar o mesmo registro a primeira conseguirá e a segunda será impedida
+    @Version
+    private int versao;
 
     @NotEmpty
     private String nome;
@@ -163,6 +168,21 @@ public class Produto {
      */
     public void setCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
+    }
+
+
+    /**
+     * @return int return the versao
+     */
+    public int getVersao() {
+        return versao;
+    }
+
+    /**
+     * @param versao the versao to set
+     */
+    public void setVersao(int versao) {
+        this.versao = versao;
     }
 
 }

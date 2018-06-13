@@ -99,7 +99,10 @@
 						<input type="submit" class="btn btn-success" value="Cadastrar">
 					</div>
 				</c:if>
-				
+
+				<!-- Necessario para o banco de dados verificar a versao e realizar o lock otimista passando o dado da view para o controller -->
+				<input type="hidden" name="versao" value="${produto.versao}">
+
  			</form>
 		</div>
 	</div>

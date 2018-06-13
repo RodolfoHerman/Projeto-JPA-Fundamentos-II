@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -39,6 +40,9 @@ public class ProdutoDao {
     public Produto getProduto(Integer id) {
         
         return em.find(Produto.class, id);
+
+        //O Lock Pessimista é um recurso do banco de dados, através do entityManager delegamos para a conexão JDBC e a conexão trava o registro fazendo com que caso outra pessoa ao tentar atualizar o mesmo registro ficará travada aguardando a liberação do registro.
+        // return em.find(Produto.class, id, LockModeType.PESSIMISTIC_READ);
     }
 
 
