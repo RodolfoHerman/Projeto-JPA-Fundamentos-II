@@ -1,0 +1,20 @@
+O cache de primeiro nível funciona para um Entitymanager que recebe várias consultas para o banco, ou seja, 
+este cache não é global e é por cada EntityManager aberta na aplicação terá seu cache.
+
+"O problema de utilizarmos o cache de primeiro nível na aplicação é que ela está configurada para que seja criado um novo EntityManager a cada requisição. Ou seja, como cada requisição possuí o seu próprio EntityManager e cada um destes o seu próprio cache, os dados do cache acabam se perdendo quando a requisição termina, além de, não serem reaproveitados entre requisições."
+
+O cache de segundo nível cria uma área compartilhada entre as Entitymanagers e precisa ser habilitado pelo programador. O cache de segundo nível possui preocupações com a estratégia com que ele funcionado e é necessário informar no parâmetro da anotação @cache que é colocado na classe.
+
+"Para utilizarmos o cache de segundo nível, devemos indicar ao Hibernate quais entidades desejamos que sejam salvas no cache, com a anotação @Cache"
+
+Existe também o cache de queries e é necessário ativá-lo através do método de configuração do JPA e informar ao Hibernate a query que será cacheada através do método setHint do TypedQuery
+
+********************************************************************************
+
+A estratégia READ_ONLY deve ser utilizada quando uma entidade não deve ser modificada.
+
+A estratégia READ_WRITE deve ser utilizada quando uma entidade pode ser modificada e há grandes chances que modificações em seu estado ocorram simultaneamente. Essa estratégia é a que mais consome recursos.
+
+A estratégia NONSTRICT_READ_WRITE deve ser utilizada quando uma entidade pode ser modificada, mas é incomum que as alterações ocorram ao mesmo tempo. Ela consome menos recursos que a estratégia READ_WRITE e é ideal quando não há problemas de dados inconsistentes serem lidos quando ocorrem alterações simultâneas.
+
+A estratégia TRANSACTIONAL deve ser utilizada em ambientes JTA, como por exemplo em servidores de aplicação. Como utilizamos Tomcat com Spring (sem JTA) essa opção não funcionará.

@@ -54,6 +54,13 @@ public class JpaConfigurator {
 	// 	props.setProperty("hibernate.show_sql", "true");
 	// 	props.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 
+	//	//Para habilitar o cache de segundo nível no Hibernate
+	//	props.setProperty("hibernate.cache.use_second_level_cache", "true");
+	//	//habilitando o cache de queries (é necessário informar na aplicação a query que será cacheada)
+	//	props.setProperty("hibernate.cache.use_query_cache", "true");
+	//	//Para configurarmos o provider EhCache no Hibernate devemos setar a propriedade 
+	//	props.setProperty("hibernate.cache.region.factory_class", "org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory");
+
 	// 	entityManagerFactory.setJpaProperties(props);
 	// 	return entityManagerFactory;
 	// }

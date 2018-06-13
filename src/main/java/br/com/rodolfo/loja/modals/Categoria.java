@@ -9,6 +9,7 @@ import javax.persistence.Id;
  * Categoria
  */
 @Entity
+//@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) 
 public class Categoria {
 
     @Id

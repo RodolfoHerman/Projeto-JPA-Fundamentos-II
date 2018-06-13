@@ -195,6 +195,10 @@ public class ProdutoDao {
 
         TypedQuery<Produto> typedQuery = em.createQuery(query);
 
+        //Informar ao Hibernate para cachear a query
+        //typedQuery.setHint("org.hibernate.cacheable", true);
+
+
         //Utilizando o EntityGraphs
         //o realizar a busca normalmente pela lista de produtos, devemos dizer qual grafo queremos utilizar passando uma dica na query
         // return em.createQuery("select distinct p from Produto p", Produto.class)

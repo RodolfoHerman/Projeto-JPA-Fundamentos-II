@@ -31,6 +31,8 @@ import org.hibernate.annotations.DynamicUpdate;
 @Entity
 //A anotação DynamicUpdate realiza o update apenas do campo que sofreu alteração e não de todos os campos
 @DynamicUpdate
+//Utilizando cache de segundo nível. A estratégia 'NONSTRICT_READ_WRITE' informar que não há problemas em ler dados inconsistentes do cache. Aqui está sendo utilizado o 'EhCache'
+//@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) 
 public class Produto {
     
     @Id
@@ -41,7 +43,7 @@ public class Produto {
     @Version
     private int versao;
 
-    @NotEmpty
+    @NotEmpty   
     private String nome;
 
     @NotEmpty
@@ -61,6 +63,7 @@ public class Produto {
     //Constroio uma tabela associativa entre 'Produto' e 'Categoria'
     @ManyToMany
     @JoinTable(name="PRODUTO_CATEGORIA")
+    ////@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) 
     private List<Categoria> categorias = new ArrayList<>();
 
     /**
