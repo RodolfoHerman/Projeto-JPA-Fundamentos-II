@@ -2,6 +2,8 @@ package br.com.rodolfo.loja;
 
 import javax.persistence.EntityManagerFactory;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.stat.Statistics;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -64,7 +66,13 @@ public class JpaConfigurator {
 	// 	entityManagerFactory.setJpaProperties(props);
 	// 	return entityManagerFactory;
 	// }
-    
+	
+	//Adicionando o Statistics no contexto do Spring e através da anotação 'Bean' o Spring gerencia o método. Para que o objeto ficasse acessível à nossa view, configuramos o SpringMVC da seguinte maneira
+	@Bean
+	public Statistics statistics(EntityManagerFactory emf) {
+
+		return emf.unwrap(SessionFactory.class).getStatistics();
+	}
     
     @Bean
     public JpaTransactionManager getTransactionManager(EntityManagerFactory emf) {
